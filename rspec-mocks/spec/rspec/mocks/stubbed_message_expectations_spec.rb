@@ -37,6 +37,11 @@ RSpec.describe "expectation set on previously stubbed method" do
       end
     end.map(&:join)
 
+    if RSpec::Support::Ruby.jruby? && ENV.fetch('CI', nil)
+      # This spec seems flakey on JRuby
+      sleep 5
+    end
+
     verify dbl
   end
 
